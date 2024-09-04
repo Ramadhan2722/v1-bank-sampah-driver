@@ -1,9 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'login_widget.dart' show LoginWidget;
+import 'resetpassword_widget.dart' show ResetpasswordWidget;
 import 'package:flutter/material.dart';
 
-class LoginModel extends FlutterFlowModel<LoginWidget> {
+class ResetpasswordModel extends FlutterFlowModel<ResetpasswordWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -23,39 +23,17 @@ class LoginModel extends FlutterFlowModel<LoginWidget> {
     return null;
   }
 
-  // State field(s) for password widget.
-  FocusNode? passwordFocusNode;
-  TextEditingController? passwordTextController;
-  late bool passwordVisibility;
-  String? Function(BuildContext, String?)? passwordTextControllerValidator;
-  String? _passwordTextControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Wajib diisi';
-    }
-
-    if (val.length < 8) {
-      return 'Kata sandi minimal 8 karakter';
-    }
-
-    return null;
-  }
-
-  // Stores action output result for [Backend Call - API (login)] action in Button widget.
-  ApiCallResponse? login;
+  // Stores action output result for [Backend Call - API (reset password)] action in verifikasi widget.
+  ApiCallResponse? resetpassword;
 
   @override
   void initState(BuildContext context) {
     emailTextControllerValidator = _emailTextControllerValidator;
-    passwordVisibility = false;
-    passwordTextControllerValidator = _passwordTextControllerValidator;
   }
 
   @override
   void dispose() {
     emailFocusNode?.dispose();
     emailTextController?.dispose();
-
-    passwordFocusNode?.dispose();
-    passwordTextController?.dispose();
   }
 }

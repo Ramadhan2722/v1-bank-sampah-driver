@@ -169,7 +169,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       controller: _model.passwordTextController,
                                       focusNode: _model.passwordFocusNode,
                                       autofocus: true,
-                                      obscureText: false,
+                                      obscureText: !_model.passwordVisibility,
                                       decoration: InputDecoration(
                                         labelText: 'Kata Sandi',
                                         labelStyle: FlutterFlowTheme.of(context)
@@ -227,6 +227,21 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           Icons.lock,
                                           color: Color(0xFF43A047),
                                         ),
+                                        suffixIcon: InkWell(
+                                          onTap: () => setState(
+                                            () => _model.passwordVisibility =
+                                                !_model.passwordVisibility,
+                                          ),
+                                          focusNode:
+                                              FocusNode(skipTraversal: true),
+                                          child: Icon(
+                                            _model.passwordVisibility
+                                                ? Icons.visibility_outlined
+                                                : Icons.visibility_off_outlined,
+                                            color: const Color(0xFF43A047),
+                                            size: 20.0,
+                                          ),
+                                        ),
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -237,6 +252,44 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       validator: _model
                                           .passwordTextControllerValidator
                                           .asValidator(context),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: const AlignmentDirectional(1.0, -1.0),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 260.0, 50.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'resetpassword',
+                                            extra: <String, dynamic>{
+                                              kTransitionInfoKey:
+                                                  const TransitionInfo(
+                                                hasTransition: true,
+                                                transitionType:
+                                                    PageTransitionType
+                                                        .rightToLeft,
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                              ),
+                                            },
+                                          );
+                                        },
+                                        child: Text(
+                                          'Lupa Kata Sandi ?',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -270,7 +323,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            'Login Berhasil',
+                                            ' Berhasil Masuk',
                                             style: TextStyle(
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -295,7 +348,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            'Login Gagal',
+                                            'Gagal Masuk',
                                             style: TextStyle(
                                               color:
                                                   FlutterFlowTheme.of(context)
