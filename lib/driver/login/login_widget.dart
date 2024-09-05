@@ -228,7 +228,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           color: Color(0xFF43A047),
                                         ),
                                         suffixIcon: InkWell(
-                                          onTap: () => setState(
+                                          onTap: () => safeSetState(
                                             () => _model.passwordVisibility =
                                                 !_model.passwordVisibility,
                                           ),
@@ -318,7 +318,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         (_model.login?.jsonBody ?? ''),
                                         r'''$.access_token''',
                                       ).toString();
-                                      setState(() {});
+                                      safeSetState(() {});
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
@@ -340,7 +340,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                                       context.pushNamed('dashboard');
                                     } else {
-                                      setState(() {
+                                      safeSetState(() {
                                         _model.emailTextController?.clear();
                                         _model.passwordTextController?.clear();
                                       });
@@ -364,7 +364,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       );
                                     }
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   text: 'Masuk',
                                   options: FFButtonOptions(

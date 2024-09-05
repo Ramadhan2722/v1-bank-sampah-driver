@@ -55,6 +55,31 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'profile',
           path: '/profile',
           builder: (context, params) => const ProfileWidget(),
+        ),
+        FFRoute(
+          name: 'lihatjadwal',
+          path: '/lihatjadwal',
+          builder: (context, params) => const LihatjadwalWidget(),
+        ),
+        FFRoute(
+          name: 'detailjadwal',
+          path: '/detailjadwal',
+          builder: (context, params) => const DetailjadwalWidget(),
+        ),
+        FFRoute(
+          name: 'inputsampah',
+          path: '/inputsampah',
+          builder: (context, params) => const InputsampahWidget(),
+        ),
+        FFRoute(
+          name: 'history',
+          path: '/history',
+          builder: (context, params) => const HistoryWidget(),
+        ),
+        FFRoute(
+          name: 'historydetail',
+          path: '/historydetail',
+          builder: (context, params) => const HistorydetailWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

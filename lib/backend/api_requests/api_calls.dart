@@ -261,6 +261,256 @@ class ResetPasswordCall {
       ));
 }
 
+class ShowScheduleCall {
+  static Future<ApiCallResponse> call({
+    String? token = '',
+    int? showschedule,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'show schedule',
+      apiUrl:
+          'https://stmik-banksampah.neumediradev.my.id/api/driver/schedules/$showschedule',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+      params: {
+        'showschedule': showschedule,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List? data(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+        true,
+      ) as List?;
+  static int? id(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.data[:].id''',
+      ));
+  static int? iddriver(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.data[:].user_id_driver''',
+      ));
+  static int? idcustomer(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.data[:].user_id_customer''',
+      ));
+  static String? numberorder(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.data[:].number_order''',
+      ));
+  static String? date(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data[:].pickup_date''',
+      ));
+  static String? time(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data[:].pickup_time''',
+      ));
+  static String? status(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data[:].status''',
+      ));
+  static String? customer(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data[:].customer''',
+      ));
+  static String? address(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data[:].address''',
+      ));
+}
+
+class HistoryCall {
+  static Future<ApiCallResponse> call({
+    String? token = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'history',
+      apiUrl:
+          'https://stmik-banksampah.neumediradev.my.id/api/driver/schedules/history',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List? data(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+        true,
+      ) as List?;
+  static List<int>? dataid(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  static List<int>? useriddriver(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].user_id_driver''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  static List<int>? useridcustomer(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].user_id_customer''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? numberorder(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].number_order''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? pickupdate(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].pickup_date''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? pickuptime(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].pickup_time''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? status(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].status''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<double>? totalweight(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].total_weight''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<double>(x))
+          .withoutNulls
+          .toList();
+  static List<int>? totalprice(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].total_price''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+}
+
+class HistoryDetailCall {
+  static Future<ApiCallResponse> call({
+    int? historydetail,
+    String? token = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'history detail',
+      apiUrl:
+          'https://stmik-banksampah.neumediradev.my.id/api/driver/schedules/history/$historydetail',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+      params: {
+        'historydetail': historydetail,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static int? dataid(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.data[:].id''',
+      ));
+  static List? data(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+        true,
+      ) as List?;
+  static int? useriddriver(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.data[:].user_id_driver''',
+      ));
+  static int? useridcustomer(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.data[:].user_id_customer''',
+      ));
+  static String? numberorder(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.data[:].number_order''',
+      ));
+  static String? pickupdate(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.data[:].pickup_date''',
+      ));
+  static String? pickuptime(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.data[:].pickup_time''',
+      ));
+  static String? status(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data[:].status''',
+      ));
+  static String? customer(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data[:].customer''',
+      ));
+  static String? driver(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.data[:].driver''',
+      ));
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

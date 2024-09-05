@@ -216,7 +216,7 @@ class _ResetpasswordWidgetState extends State<ResetpasswordWidget> {
                             );
                           }
 
-                          setState(() {});
+                          safeSetState(() {});
                         },
                         text: 'Kirim',
                         options: FFButtonOptions(
