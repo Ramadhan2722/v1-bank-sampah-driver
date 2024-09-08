@@ -511,6 +511,220 @@ class HistoryDetailCall {
       ));
 }
 
+class InputTransaksiCall {
+  static Future<ApiCallResponse> call({
+    int? id,
+    List<String>? priceList,
+    List<String>? weightList,
+    List<String>? typeTrashList,
+    String? token = '',
+    List<String>? dateList,
+  }) async {
+    final price = _serializeList(priceList);
+    final weight = _serializeList(weightList);
+    final typeTrash = _serializeList(typeTrashList);
+    final date = _serializeList(dateList);
+
+    final ffApiRequestBody = '''
+{
+  "price": "$price",
+  "weight": "$weight",
+  "type_trash": "$typeTrash"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'input transaksi',
+      apiUrl:
+          'https://stmik-banksampah.neumediradev.my.id/api/driver/schedules/transaction/$id',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List<String>? date(dynamic response) => (getJsonField(
+        response,
+        r'''$.date''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? typetrash(dynamic response) => (getJsonField(
+        response,
+        r'''$.type_trash''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? price(dynamic response) => (getJsonField(
+        response,
+        r'''$.price''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? weight(dynamic response) => (getJsonField(
+        response,
+        r'''$.weight''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+}
+
+class QRCreateSchedueCall {
+  static Future<ApiCallResponse> call({
+    String? ccm = '',
+    String? token = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'QR create schedue',
+      apiUrl:
+          'https://stmik-banksampah.neumediradev.my.id/api/driver/autoCreateSchedule/$ccm',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+      params: {
+        'ccm': ccm,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static bool? success(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.success''',
+      ));
+  static String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  static dynamic data(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+      );
+  static int? datauseridcustomer(dynamic response) =>
+      castToType<int>(getJsonField(
+        response,
+        r'''$.data.user_id_customer''',
+      ));
+  static int? datauseriddriver(dynamic response) =>
+      castToType<int>(getJsonField(
+        response,
+        r'''$.data.user_id_driver''',
+      ));
+  static String? datanumberorder(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.data.number_order''',
+      ));
+  static String? datapickupdate(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.data.pickup_date''',
+      ));
+  static String? datapickuptime(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.data.pickup_time''',
+      ));
+  static String? datastatus(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.data.status''',
+      ));
+  static int? dataid(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.data.id''',
+      ));
+}
+
+class TrashListCall {
+  static Future<ApiCallResponse> call({
+    String? token = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'trash list',
+      apiUrl: 'https://stmik-banksampah.neumediradev.my.id/api/driver/trash',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static bool? success(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.success''',
+      ));
+  static String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  static List? data(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+        true,
+      ) as List?;
+  static List<int>? dataid(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? dataname(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].name''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? dataprice(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].price''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

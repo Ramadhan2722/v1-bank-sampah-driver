@@ -1,7 +1,9 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'detailjadwal_model.dart';
 export 'detailjadwal_model.dart';
 
@@ -32,6 +34,8 @@ class _DetailjadwalWidgetState extends State<DetailjadwalWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -87,61 +91,106 @@ class _DetailjadwalWidgetState extends State<DetailjadwalWidget> {
                     )
                   ],
                 ),
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 0.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          'assets/images/group.png',
+                child: FutureBuilder<ApiCallResponse>(
+                  future: ShowScheduleCall.call(
+                    token: FFAppState().token,
+                    showschedule: FFAppState().id,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
                           width: 50.0,
                           height: 50.0,
-                          fit: BoxFit.cover,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(60.0, 20.0, 0.0, 0.0),
-                      child: Text(
-                        'Username',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
+                      );
+                    }
+                    final stackShowScheduleResponse = snapshot.data!;
+
+                    return Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10.0, 10.0, 0.0, 0.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              'assets/images/group.png',
+                              width: 50.0,
+                              height: 50.0,
+                              fit: BoxFit.cover,
                             ),
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(200.0, 40.0, 0.0, 0.0),
-                      child: Text(
-                        'order',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              60.0, 20.0, 0.0, 0.0),
+                          child: Text(
+                            valueOrDefault<String>(
+                              ShowScheduleCall.customer(
+                                stackShowScheduleResponse.jsonBody,
+                              ),
+                              'customer',
                             ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          200.0, 60.0, 0.0, 10.0),
-                      child: Text(
-                        'status',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Readex Pro',
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              200.0, 40.0, 0.0, 0.0),
+                          child: Text(
+                            valueOrDefault<String>(
+                              ShowScheduleCall.numberorder(
+                                stackShowScheduleResponse.jsonBody,
+                              ),
+                              'order',
                             ),
-                      ),
-                    ),
-                  ],
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              200.0, 60.0, 0.0, 10.0),
+                          child: Text(
+                            valueOrDefault<String>(
+                              ShowScheduleCall.status(
+                                stackShowScheduleResponse.jsonBody,
+                              ),
+                              'status',
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ],

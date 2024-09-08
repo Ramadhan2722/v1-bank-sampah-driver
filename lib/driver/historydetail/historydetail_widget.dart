@@ -100,10 +100,10 @@ class _HistorydetailWidgetState extends State<HistorydetailWidget> {
 
                   return Builder(
                     builder: (context) {
-                      final historydetail = getJsonField(
-                        stackHistoryDetailResponse.jsonBody,
-                        r'''$.data''',
-                      ).toList();
+                      final historydetail = HistoryDetailCall.data(
+                            stackHistoryDetailResponse.jsonBody,
+                          )?.toList() ??
+                          [];
 
                       return Stack(
                         children: List.generate(historydetail.length,
